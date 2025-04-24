@@ -1,0 +1,23 @@
+<section class="promotional-products">
+
+  <h1>特价促销</h1>
+
+  <div class="product-grid">
+
+    {% for product in collections.sale.products %}
+
+      <div class="product-item">
+
+        <h2>{{ product.title }}</h2>
+
+        <p>{{ product.price | money }}</p>
+
+        <a href="{{ product.url }}">了解更多</a>
+
+      </div>
+
+    {% endfor %}
+
+  </div>
+
+</section>
