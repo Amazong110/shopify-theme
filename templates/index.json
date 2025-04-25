@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "alert_box_qM73fK": {
+      "type": "alert_box",
+      "blocks": {
+        "alertbox_gFxfiL": {
+          "type": "alertbox",
+          "name": "Alert box",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "alertbox_gFxfiL"
+      ],
+      "name": "Alert box",
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -222,6 +238,7 @@
     }
   },
   "order": [
+    "alert_box_qM73fK",
     "image_banner",
     "rich_text",
     "featured_collection",
