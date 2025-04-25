@@ -9,22 +9,6 @@
  */
 {
   "sections": {
-    "alert_box_qM73fK": {
-      "type": "alert_box",
-      "blocks": {
-        "alertbox_gFxfiL": {
-          "type": "alertbox",
-          "name": "Alert box",
-          "settings": {},
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "alertbox_gFxfiL"
-      ],
-      "name": "Alert box",
-      "settings": {}
-    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -71,6 +55,11 @@
         "mobile_content_alignment": "center",
         "show_text_below": false
       }
+    },
+    "alert_box_GwGtFb": {
+      "type": "alert_box",
+      "name": "Alert box",
+      "settings": {}
     },
     "rich_text": {
       "type": "rich-text",
@@ -238,8 +227,8 @@
     }
   },
   "order": [
-    "alert_box_qM73fK",
     "image_banner",
+    "alert_box_GwGtFb",
     "rich_text",
     "featured_collection",
     "collage",
