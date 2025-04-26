@@ -1,0 +1,42 @@
+<h1>我在写第一行代码</h1>
+
+{%  assign myvarinfo = 'hello shopify' %}   
+
+{% comment %} this  is  a  comment  but  not  render {% endcomment %}
+
+{{  myvarinfo  }}
+
+<br>
+
+
+{% for  tag  in  product.tags %}
+
+{{  tag  }}
+<br>
+{% endfor %}
+
+<br>
+
+{% comment %} {{  product.title    }} {% endcomment %}
+
+
+{% comment %} 为了捕获html {% endcomment %}
+{%  capture  html %}  
+    <div>
+            <p>hello  {{  product.title    }}</p>
+    </div>
+{% endcapture  %}
+
+
+{% comment %} 捕获之后还要呈现出来 {% endcomment %}
+{{html}}
+
+{% assign mynumvariable = 9 %}
+
+{% if mynumvariable > 10 %}
+    <p> this number bigger than 10</p>
+{% elsif mynumvariable > 5 %}
+     <p> this number bigger than 5 </p>   
+    {% else %}
+    <p> this number small than 5 </p>  
+    {% endif %}
