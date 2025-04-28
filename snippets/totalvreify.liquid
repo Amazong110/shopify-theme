@@ -1,0 +1,31 @@
+{% assign variable_name = 'hellp world' %}
+{{variable_name}}
+
+<br>
+
+{% assign variable_number = 123 %}
+{% assign variable_float_number = 123.5 %}
+
+
+{{variable_number}},{{variable_float_number}}
+
+<br>
+
+{% assign myNil = null %}
+{{myNil}}
+
+{%if   myNil == null  %}
+
+    <p>myNil is null</p>
+
+{% endif %}
+
+<br>
+
+{{product.title}}
+
+<br>
+
+{%  assign  html = <div>
+    <p>hello {{  urlRedirects.query  }}</p>
+</div>   %}
