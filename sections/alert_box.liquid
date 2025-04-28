@@ -1,0 +1,29 @@
+<div class="alert">
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "alert box",
+  "blocks": [
+    {
+      "type": "@theme",
+    },
+    {
+      "type": "@app"
+    },
+  ],
+  "presets": [
+    {
+            "name": "Alert box"
+    }
+
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .alert{
+    display: flex;
+    background: balck;
+  }
+{% endstyle %}
