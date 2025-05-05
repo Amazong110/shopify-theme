@@ -1,10 +1,10 @@
-<h1>我在写第一行代码</h1>
+{% comment %} <h1>我在写第一行代码</h1>
 
-{%  assign myvarinfo = 'hello shopify' %}   
+{%  assign myvarinfo = 'hello shopify' %}    {% endcomment %}
 
 {% comment %} this  is  a  comment  but  not  render {% endcomment %}
 
-{{  myvarinfo  }}
+{% comment %} {{  myvarinfo  }}
 
 <br>
 
@@ -15,28 +15,81 @@
 <br>
 {% endfor %}
 
-<br>
+<br> {% endcomment %}
 
 {% comment %} {{  product.title    }} {% endcomment %}
 
 
 {% comment %} 为了捕获html {% endcomment %}
-{%  capture  html %}  
+{% comment %} {%  capture  html %}  
     <div>
             <p>hello  {{  product.title    }}</p>
     </div>
-{% endcapture  %}
+{% endcapture  %} {% endcomment %}
 
 
 {% comment %} 捕获之后还要呈现出来 {% endcomment %}
-{{html}}
+{% comment %} {{html}} {% endcomment %}
 
-{% assign mynumvariable = 9 %}
+{% comment %} {{ product   }}
 
-{% if mynumvariable > 10 %}
-    <p> this number bigger than 10</p>
-{% elsif mynumvariable > 5 %}
-     <p> this number bigger than 5 </p>   
-    {% else %}
-    <p> this number small than 5 </p>  
-    {% endif %}
+{%  for product in collection.products limit:5 offset:4  %}
+    <p style="{%  if forloop.fitst %}
+        color: green
+        {% elsif forloop.last%}
+        color: orange
+        {% endif %}
+    ">
+    {{forloop.index}} - {{product.title}}
+    </p>
+
+
+{% endfor %} {% endcomment %}
+
+
+{% comment %} {% for i in (11..16) %}
+    <span>Hello World111 {{i}} , {{  forloop.index  }} </span>
+{% endfor %} {% endcomment %}
+
+{% comment %} {% paginate all_products by 5 %}
+    {% for product in collection.products %}
+        <p>  {{ product.title  }}</p>
+    {% endfor %}
+
+    {{paginate |  default_pagination}}
+{% endpaginate %} {% endcomment %}
+
+{% assign myTestNumber = 10 %}
+
+{% comment %} 过滤器给原本加上5 {% endcomment %}
+{% comment %} {% assign myNewNumber = myTestNumber | plus: 5 %} {% endcomment %}
+{% comment %} {% assign myNewNumber = myTestNumber | minus: 5 %} {% endcomment %}
+{% comment %} {% assign myNewNumber = myTestNumber | times: 6 %} {% endcomment %}
+{% comment %} {% assign myNewNumber = myTestNumber | divided_by: 5 %} {% endcomment %}
+{{ myNewNumber   }}
+
+{% comment %} 判断一个数是否为奇数或者偶数的过滤器 {% endcomment %}
+{% comment %} {% assign moduloNumber = myTestNumber |  modulo: 2 %}
+{% if moduloNumber ==  0 %}
+    <p>{{ myTestNumber }} 是偶数。</p>
+{% else %}
+    <p>{{ myTestNumber }} 是奇数。</p>
+{% endif %} {% endcomment %}
+
+{% comment %} {% assign myAbsnumber = -11 | abs %}
+<p>{{ myAbsnumber   }}</p> {% endcomment %}
+
+{% comment %}  向上满足 {% assign myRoundenumber = 10.5 | round %}
+<p>{{ myRoundenumber }}</p>  {% endcomment %}
+
+{% comment %}  向下满足 {% assign myRoundenumber = 10.5 | floor %}
+<p>{{ myRoundenumber }}</p>  {% endcomment %}
+
+  {% comment %} 向上取整 {% assign myRoundenumber = 10.4 | ceil %}
+<p>{{ myRoundenumber }}</p> {% endcomment %}
+
+{% comment %} {% assign myCappedValue = 100 %}
+<p> {{ myCappedValue |  at_most: 80   }}</p> {% endcomment %}
+
+{% comment %} {% assign myCappedValue = 60 %}
+<p> {{ myCappedValue |  at_least: 80   }}</p> {% endcomment %}
