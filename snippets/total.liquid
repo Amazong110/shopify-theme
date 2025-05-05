@@ -1,95 +1,40 @@
-{% comment %} <h1>我在写第一行代码</h1>
+{% assign myString = 'Hello World' %}
 
-{%  assign myvarinfo = 'hello shopify' %}    {% endcomment %}
+{% comment %} 第二个单词小写 <p>{{ myString |  capitalize   }}</p> {% endcomment %}
 
-{% comment %} this  is  a  comment  but  not  render {% endcomment %}
+{% comment %} <p> {{ myString  | append:'  some EXTRA text'   }} </p> {% endcomment %}
 
-{% comment %} {{  myvarinfo  }}
+{% assign myOtherString = 'Hello EXTRA World      ' %}
 
-<br>
+{% comment %} <p> {{ myOtherString |  downcase |  append: 'myOtherString'   }} </p> {% endcomment %}
+{% comment %} <p> {{ myOtherString   |  append: '!'   }} </p>
+<p> {{ myOtherString | strip  |  append: '!'   }} </p>  去掉空格 {% endcomment %}
 
+{% comment %} {% assign myHTmlCode = '<p style="color: red;"> Hello</p>' %}
+纯文本过滤 
+{{myHTmlCode |  strip_html}} {% endcomment %}
+{% assign myLongString = 'Hello EXTRA World  21321321321321321321sadsadsadsadsadsa    ' %}
 
-{% for  tag  in  product.tags %}
+{% comment %} 只留四个字母 <p>{{  myLongString | truncate: 4,'?'  }}</p> {% endcomment %}
+{% comment %} 只留3个单词<p>{{ myLongString |  truncatewords: 3 }}</p> {% endcomment %}
 
-{{  tag  }}
-<br>
-{% endfor %}
+{% comment %} {%  assign myMultilineText = '
+            this  is my first line
+              this  is my second line
+               this  is my third line
+' |  newline_to_br 过滤器换行  %}   
 
-<br> {% endcomment %}
+{{  myMultilineText   }} {% endcomment %}
 
-{% comment %} {{  product.title    }} {% endcomment %}
+{% assign myText = 'Hello some extra text some extra text' %}
 
+{% comment %} <p>  {{ myText  |  replace_last: 'extra', 'replace' }}</p> {% endcomment %}
+ {% comment %} <p> {{ myText  |  remove_last: 'text'  }} </p> {% endcomment %}
 
-{% comment %} 为了捕获html {% endcomment %}
-{% comment %} {%  capture  html %}  
-    <div>
-            <p>hello  {{  product.title    }}</p>
-    </div>
-{% endcapture  %} {% endcomment %}
-
-
-{% comment %} 捕获之后还要呈现出来 {% endcomment %}
-{% comment %} {{html}} {% endcomment %}
-
-{% comment %} {{ product   }}
-
-{%  for product in collection.products limit:5 offset:4  %}
-    <p style="{%  if forloop.fitst %}
-        color: green
-        {% elsif forloop.last%}
-        color: orange
-        {% endif %}
-    ">
-    {{forloop.index}} - {{product.title}}
-    </p>
-
-
-{% endfor %} {% endcomment %}
-
-
-{% comment %} {% for i in (11..16) %}
-    <span>Hello World111 {{i}} , {{  forloop.index  }} </span>
-{% endfor %} {% endcomment %}
-
-{% comment %} {% paginate all_products by 5 %}
-    {% for product in collection.products %}
-        <p>  {{ product.title  }}</p>
-    {% endfor %}
-
-    {{paginate |  default_pagination}}
-{% endpaginate %} {% endcomment %}
-
-{% assign myTestNumber = 10 %}
-
-{% comment %} 过滤器给原本加上5 {% endcomment %}
-{% comment %} {% assign myNewNumber = myTestNumber | plus: 5 %} {% endcomment %}
-{% comment %} {% assign myNewNumber = myTestNumber | minus: 5 %} {% endcomment %}
-{% comment %} {% assign myNewNumber = myTestNumber | times: 6 %} {% endcomment %}
-{% comment %} {% assign myNewNumber = myTestNumber | divided_by: 5 %} {% endcomment %}
-{{ myNewNumber   }}
-
-{% comment %} 判断一个数是否为奇数或者偶数的过滤器 {% endcomment %}
-{% comment %} {% assign moduloNumber = myTestNumber |  modulo: 2 %}
-{% if moduloNumber ==  0 %}
-    <p>{{ myTestNumber }} 是偶数。</p>
-{% else %}
-    <p>{{ myTestNumber }} 是奇数。</p>
-{% endif %} {% endcomment %}
-
-{% comment %} {% assign myAbsnumber = -11 | abs %}
-<p>{{ myAbsnumber   }}</p> {% endcomment %}
-
-{% comment %}  向上满足 {% assign myRoundenumber = 10.5 | round %}
-<p>{{ myRoundenumber }}</p>  {% endcomment %}
-
-{% comment %}  向下满足 {% assign myRoundenumber = 10.5 | floor %}
-<p>{{ myRoundenumber }}</p>  {% endcomment %}
-
-  {% comment %} 向上取整 {% assign myRoundenumber = 10.4 | ceil %}
-<p>{{ myRoundenumber }}</p> {% endcomment %}
-
-{% comment %} {% assign myCappedValue = 100 %}
-<p> {{ myCappedValue |  at_most: 80   }}</p> {% endcomment %}
-
-{% comment %} {% assign myCappedValue = 60 %}
-<p> {{ myCappedValue |  at_least: 80   }}</p> {% endcomment %}
+ {% comment %}  将字符串的内容分割 {% assign myColorsList = 'Html|orange,css|blue,javascript|yellow' |  split: ',' %}
+ {% for language in myColorsList %}
+    {% assign languageName = language |  split: "|" | first %}
+    {% assign languageColor = language |  split:  "|" | last %}
+        <p style="color:{{ languageColor }}">{{languageName}}</p>
+   
+ {% endfor %} {% endcomment %}
