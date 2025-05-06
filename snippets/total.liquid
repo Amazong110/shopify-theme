@@ -1,42 +1,73 @@
 <h1>我在写第一行代码</h1>
 
-{%  assign myvarinfo = 'hello shopify' %}   
+{% assign myvarinfo = 'hello shopify' %}
 
 {% comment %} this  is  a  comment  but  not  render {% endcomment %}
 
-{{  myvarinfo  }}
+{{ myvarinfo }}
 
 <br>
 
-
-{% for  tag  in  product.tags %}
-
-{{  tag  }}
-<br>
+{% for tag in product.tags %}
+  {{ tag }}
+  <br>
 {% endfor %}
 
 <br>
 
 {% comment %} {{  product.title    }} {% endcomment %}
 
-
 {% comment %} 为了捕获html {% endcomment %}
-{%  capture  html %}  
+{% capture html %}  
     <div>
             <p>hello  {{  product.title    }}</p>
     </div>
-{% endcapture  %}
-
+{% endcapture %}
 
 {% comment %} 捕获之后还要呈现出来 {% endcomment %}
-{{html}}
+{{ html }}
 
 {% assign mynumvariable = 9 %}
 
 {% if mynumvariable > 10 %}
-    <p> this number bigger than 10</p>
+  <p>this number bigger than 10</p>
 {% elsif mynumvariable > 5 %}
-     <p> this number bigger than 5 </p>   
-    {% else %}
-    <p> this number small than 5 </p>  
-    {% endif %}
+  <p>this number bigger than 5</p>
+{% else %}
+  <p>this number small than 5</p>
+{% endif %}
+
+<br>
+
+{% comment %} {{ product }} {% endcomment %}
+{% comment %} {{ product | inspect }} {% endcomment %}
+{% if product.title %}
+  <p>Product Title: {{ product.title }}</p>
+{% endif %}
+{% if product.price %}
+  <p>Product Price: {{ product.price }}</p>
+{% endif %}
+
+<br>
+{% if product.title contains 'Snowboard' %}
+  <p>This is Snowboard</p>
+{% endif %}
+
+<br>
+{% unless mynumvariable < 10 %}
+  <p>this num is less than 10</p>
+{% endunless %}
+
+<br>
+
+<br>
+
+{% if product.tags.size > 0 %}
+  <h2>Tags</h2>
+
+  <ul>
+    {% for tag in product.tags %}
+      <li data-product-index>{{ tag }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
