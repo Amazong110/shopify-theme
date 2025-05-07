@@ -1,75 +1,78 @@
-<h1>我在写第一行代码</h1>
-
-{% assign myvarinfo = 'hello shopify' %}
-
-{% comment %} 第二个单词小写 <p>{{ myString |  capitalize   }}</p> {% endcomment %}
-
-{% comment %} <p> {{ myString  | append:'  some EXTRA text'   }} </p> {% endcomment %}
-
-{{ myvarinfo }}
-
-<br>
-
-{% for tag in product.tags %}
-  {{ tag }}
-  <br>
-{% endfor %}
-
-<br>
-
-{% comment %} {{  product.title    }} {% endcomment %}
-
-{% comment %} 为了捕获html {% endcomment %}
-{% capture html %}  
-    <div>
-            <p>hello  {{  product.title    }}</p>
-    </div>
-{% endcapture %}
-
-{% comment %} 捕获之后还要呈现出来 {% endcomment %}
-{{ html }}
-
-{% assign mynumvariable = 9 %}
-
-{% if mynumvariable > 10 %}
-  <p>this number bigger than 10</p>
-{% elsif mynumvariable > 5 %}
-  <p>this number bigger than 5</p>
-{% else %}
-  <p>this number small than 5</p>
-{% endif %}
-
-<br>
-
 {% comment %} {{ product }} {% endcomment %}
 {% comment %} {{ product | inspect }} {% endcomment %}
-{% if product.title %}
-  <p>Product Title: {{ product.title }}</p>
-{% endif %}
-{% if product.price %}
-  <p>Product Price: {{ product.price }}</p>
-{% endif %}
+{% comment %}
+  {% if product.title %}
+    <p>Product Title: {{ product.title }}</p>
+  {% endif %}
+  {% if product.price %}
+    <p>Product Price: {{ product.price }}</p>
+  {% endif %}
 
-<br>
-{% if product.title contains 'Snowboard' %}
-  <p>This is Snowboard</p>
-{% endif %}
+  <br>
+  {% if product.title contains 'Snowboard' %}
+    <p>This is Snowboard</p>
+  {% endif %}
 
-<br>
-{% unless mynumvariable < 10 %}
-  <p>this num is less than 10</p>
-{% endunless %}
+  <br>
+  {% unless mynumvariable < 10 %}
+    <p>this num is less than 10</p>
+  {% endunless %}
 
-<br>
+  <br>
 
-<br>
+  <br>
 
-{% if product.tags.size > 0 %}
-  <h2>Tags</h2>
+  {% if product.tags.size > 0 %}
+    <h2>Tags</h2>
 
-  <ul>
-    {% for tag in product.tags %}
-      <li data-product-index>{{ tag }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+    <ul>
+      {% for tag in product.tags %}
+        <li data-product-index>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endcomment %}
+
+{% comment %} {{ product.title }} {% endcomment %}
+{% comment %}
+  {% assign products = collection.products %}
+  {% assign productTitles = products | map: 'title' %}
+  {% assign combinedTitles = productTitles | join: ', ' %}
+
+  {{ collection.products }}
+{% endcomment %}
+{% comment %}
+  对字符串进行的一些操作 {{ product.title }}
+  {{ product.title | first }}
+  {{ product.title | last }}
+  {{ product.title | size }}
+{% endcomment %}
+{% comment %}
+  <p>{{ collection.description | default: 'this is a default description' }}</p>
+
+  {% assign backgroundColor = '#ff0000' %}
+
+  <div class="swatch" style="background:{{  backgroundColor |  color_lighten: 50  }}"></div>
+
+  {% assign color1 = '#000000' %}
+  {% assign color2 = '#0000ff' %}
+
+  <div class="swatch" style="background:{{  color1 |  color_mix: color2,100  }}"></div>
+{% endcomment %}
+
+{{ section }}
+
+{% comment %}
+  {% assign heading_block = section.blocks | find: 'type', 'heading' %}
+  <p>{{ heading_block.setting.heading }}</p>
+{% endcomment %}
+
+<style>
+  .swatch {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    display: block !important;
+  }
+</style>

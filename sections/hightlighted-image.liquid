@@ -1,0 +1,67 @@
+<!-- 定义 section 的 schema -->
+{% schema %}
+{
+  "name": "Highlighted Image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "promotion_text",
+      "label": "促销话语",
+      "default": "限时促销，不容错过！"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "图片 1",
+      "info": "请选择第一张图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "图片 2",
+      "info": "请选择第二张图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "图片 3",
+      "info": "请选择第三张图片"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "关联产品",
+      "info": "选择要添加到购物车的产品"
+    }
+  ]
+}
+{% endschema %}
+
+<!-- 渲染 section 的 HTML 结构 -->
+<div class="highlighted-image-section">
+  <p class="promotion-text">{{ section.settings.promotion_text }}</p>
+  <div class="image-container">
+    {% if section.settings.image_1 %}
+      <img src="{{ section.settings.image_1 | img_url: '200x300' }}" alt="图片 1">
+    {% else %}
+      <img src="https://picsum.photos/200/300" alt="图片 1 占位符">
+    {% endif %}
+    {% if section.settings.image_2 %}
+      <img src="{{ section.settings.image_2 | img_url: '200x300' }}" alt="图片 2">
+    {% else %}
+      <img src="https://picsum.photos/200/300" alt="图片 2 占位符">
+    {% endif %}
+    {% if section.settings.image_3 %}
+      <img src="{{ section.settings.image_3 | img_url: '200x300' }}" alt="图片 3">
+    {% else %}
+      <img src="https://picsum.photos/200/300" alt="图片 3 占位符">
+    {% endif %}
+  </div>
+  {% if section.settings.product %}
+    <form action="/cart/add" method="post">
+      <input type="hidden" name="id" value="{{ section.settings.product.variants.first.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="add-to-cart-button">一键添加购物车</button>
+    </form>
+  {% endif %}
+</div>
