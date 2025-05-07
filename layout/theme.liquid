@@ -22,8 +22,13 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-
-<div>Hello World111</div>
+    {%
+      render 'total',{
+      word: 'hello',
+      seconedword: 'hello world'
+      }
+    %}
+    {% comment %} <div>Hello World111</div> {% endcomment %}
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -306,8 +311,7 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {%  render 'total' %}   
-
+    {% render 'total' %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

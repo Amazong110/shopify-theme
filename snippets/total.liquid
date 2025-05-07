@@ -60,12 +60,16 @@
   <div class="swatch" style="background:{{  color1 |  color_mix: color2,100  }}"></div>
 {% endcomment %}
 
-{{ section }}
+{% comment %} {{ section }} {% endcomment %}
 
-{% comment %}
-  {% assign heading_block = section.blocks | find: 'type', 'heading' %}
-  <p>{{ heading_block.setting.heading }}</p>
-{% endcomment %}
+<p>
+  {{ word }}
+  {{ seconedword }}
+</p>
+
+{% comment %} <script src="{{ 'my-snippet-script.js' |  asset_url  }}" async></script> {% endcomment %}
+
+<img src="{{ 'sparkle.gif' | asset_img_url: '1000x1000'  }} loading='eager' width='500' height='500'">
 
 <style>
   .swatch {
