@@ -3,23 +3,15 @@
 <div class="personal-center-container">
   <!-- 用户信息区域 -->
   <div class="customer-info-section">
-    <h2>账户信息</h2>
-    {% if customer %}
-      <div class="customer-avatar">
-        {% if customer.avatar %}
-          <img src="{{ customer.avatar | image_url: width: 100 }}" alt="{{ customer.first_name }} {{ customer.last_name }}">
-        {% else %}
-          <div class="avatar-placeholder">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</div>
-        {% endif %}
-      </div>
-      <div class="customer-details">
-        <p class="customer-name">{{ customer.first_name }} {{ customer.last_name }}</p>
-        <p class="customer-email">{{ customer.email }}</p>
-        <a href="{{ routes.account_url }}" class="button button--tertiary">编辑资料</a>
-      </div>
-    {% else %}
-      <p>请<a href="{{ routes.account_login_url }}">登录</a>查看您的账户信息</p>
-    {% endif %}
+    <h2>这是目前有的产品</h2>
+        <div class="grid grid-cols-1 gap-4">
+        <div class="p-4 bg-white rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold">{{ product.title }}</h3>
+        </div>
+        <div class="p-4 bg-white rounded-lg shadow-md">
+            <p class="text-gray-700">{{ collection.description }}</p>
+        </div>
+        </div>
   </div>
 
   <!-- 购物车区域 -->
@@ -60,7 +52,13 @@
                       </button>
                     </div>
                   </td>
-                  <td class="cart-item-price">{{ item.final_price | money }}</td>
+                  {% comment %} <td class="cart-item-price">{{ item.final_price | money }}</td> {% endcomment %}
+                  {% if product.compare_at_price > product.price %}
+                    <span class="original-price">{{ product.compare_at_price | money }}</span>
+                    <span class="discounted-price">{{ product.price | money }}</span>
+                  {% else %}
+                    <span class="regular-price">{{ product.price | money }}</span>
+                  {% endif %}
                   <td class="cart-item-quantity">
                     <div class="quantity-input">
                       <button type="button" class="quantity-adjust minus" data-index="{{ forloop.index }}">-</button>
