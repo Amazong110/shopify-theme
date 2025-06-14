@@ -306,7 +306,7 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-     {% render 'totalvreify' %}
+     {% comment %} {% render 'totalvreify' %} {% endcomment %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

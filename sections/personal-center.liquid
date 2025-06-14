@@ -1,1 +1,322 @@
 <h1>个人中心页面</h1>
+
+<div class="personal-center-container">
+  <!-- 用户信息区域 -->
+  <div class="customer-info-section">
+    <h2>账户信息</h2>
+    {% if customer %}
+      <div class="customer-avatar">
+        {% if customer.avatar %}
+          <img src="{{ customer.avatar | image_url: width: 100 }}" alt="{{ customer.first_name }} {{ customer.last_name }}">
+        {% else %}
+          <div class="avatar-placeholder">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</div>
+        {% endif %}
+      </div>
+      <div class="customer-details">
+        <p class="customer-name">{{ customer.first_name }} {{ customer.last_name }}</p>
+        <p class="customer-email">{{ customer.email }}</p>
+        <a href="{{ routes.account_url }}" class="button button--tertiary">编辑资料</a>
+      </div>
+    {% else %}
+      <p>请<a href="{{ routes.account_login_url }}">登录</a>查看您的账户信息</p>
+    {% endif %}
+  </div>
+
+  <!-- 购物车区域 -->
+  <div class="cart-section">
+    <h2>我的购物车</h2>
+    {% if cart == empty %}
+      <div class="cart-empty">
+        <div class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</div>
+        <p class="cart-empty-text">{{ 'sections.cart.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button">继续购物</a>
+      </div>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-form">
+        <div class="cart-items-wrapper">
+          <table class="cart-items">
+            <thead>
+              <tr>
+                <th class="cart-header-product">商品</th>
+                <th class="cart-header-price">单价</th>
+                <th class="cart-header-quantity">数量</th>
+                <th class="cart-header-total">小计</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart.items %}
+                <tr class="cart-item">
+                  <td class="cart-item-details">
+                    {% if item.image %}
+                      <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.title }}" class="cart-item-image">
+                    {% endif %}
+                    <div class="cart-item-info">
+                      <a href="{{ item.url }}" class="cart-item-title">{{ item.product.title }}</a>
+                      {% if item.variant.title != 'Default Title' %}
+                        <p class="cart-item-variant">{{ item.variant.title }}</p>
+                      {% endif %}
+                      <button type="button" class="cart-remove-button" data-variant-id="{{ item.variant.id }}">
+                        {{ 'sections.cart.remove' | t }}
+                      </button>
+                    </div>
+                  </td>
+                  <td class="cart-item-price">{{ item.final_price | money }}</td>
+                  <td class="cart-item-quantity">
+                    <div class="quantity-input">
+                      <button type="button" class="quantity-adjust minus" data-index="{{ forloop.index }}">-</button>
+                      <input type="number" name="updates[]" value="{{ item.quantity }}" min="1" class="quantity" data-index="{{ forloop.index }}">
+                      <button type="button" class="quantity-adjust plus" data-index="{{ forloop.index }}">+</button>
+                    </div>
+                  </td>
+                  <td class="cart-item-total">{{ item.final_line_price | money }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cart-summary">
+          <div class="cart-subtotal">
+            <span>小计</span>
+            <span>{{ cart.subtotal_price | money }}</span>
+          </div>
+          {% if cart.total_discounts > 0 %}
+            <div class="cart-discount">
+              <span>折扣</span>
+              <span>-{{ cart.total_discounts | money }}</span>
+            </div>
+          {% endif %}
+          <div class="cart-total">
+            <span>总计</span>
+            <span>{{ cart.total_price | money_with_currency }}</span>
+          </div>
+
+          <div class="cart-actions">
+            <a href="{{ routes.cart_url }}" class="button button--tertiary">查看完整购物车</a>
+            <button type="submit" name="checkout" class="button">前往结账</button>
+          </div>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .personal-center-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .customer-info-section,
+  .cart-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .customer-info-section h2,
+  .cart-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .customer-avatar {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1rem;
+  }
+
+  .avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #666;
+  }
+
+  .customer-details {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .customer-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .customer-email {
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .cart-empty .svg-wrapper {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  .cart-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+
+  .cart-items th,
+  .cart-items td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+
+  .cart-header-product {
+    width: 40%;
+  }
+
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+
+  .cart-item-info {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .cart-item-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .cart-item-variant {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-remove-button {
+    background: none;
+    border: none;
+    color: #ff4d4f;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+
+  .quantity-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .quantity-input button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    cursor: pointer;
+  }
+
+  .quantity-input .quantity {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+  }
+
+  .cart-summary {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-width: 400px;
+    margin-left: auto;
+  }
+
+  .cart-subtotal,
+  .cart-discount,
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .cart-total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-bottom: none;
+  }
+
+  .cart-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+</style>
+
+<script>
+  // 数量调整功能
+  document.addEventListener('DOMContentLoaded', function() {
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    quantityInputs.forEach(input => {
+      const minusBtn = input.querySelector('.minus');
+      const plusBtn = input.querySelector('.plus');
+      const quantity = input.querySelector('.quantity');
+
+      minusBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantity.value);
+        if (currentValue > 1) {
+          quantity.value = currentValue - 1;
+        }
+      });
+
+      plusBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantity.value);
+        quantity.value = currentValue + 1;
+      });
+    });
+
+    // 删除商品功能
+    const removeButtons = document.querySelectorAll('.cart-remove-button');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const variantId = this.getAttribute('data-variant-id');
+        fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: 0
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          window.location.reload();
+        });
+      });
+    });
+  });
+</script>
