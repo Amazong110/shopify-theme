@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
-
+{{ 'new-css.css' |  asset_url |  stylesheet_tag   }}
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
@@ -101,6 +101,8 @@
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
+<button id="clickbtn">点击此按钮弹出框子</button>
+
 {%- liquid
   for block in section.blocks
     if block.type == '@app'
@@ -117,7 +119,7 @@
   endif
 %}
 
-<{{ header_tag }} {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
+<{{ header_tag }} {% if header_tag == 'sticky-header' %}data-sticky-type="{{ section.settings.sticky_header_type }}"{% endif %} class="my_css header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
   {%- liquid
     assign social_links = false
     assign localization_forms = false
@@ -448,7 +450,7 @@
     }
   </script>
 {%- endif -%}
-
+{{ 'btn.js' |  asset_url |  script_tag   }}
 {% schema %}
 {
   "name": "t:sections.header.name",
