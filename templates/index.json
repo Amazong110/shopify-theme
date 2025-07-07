@@ -9,6 +9,7 @@
  */
 {
   "sections": {
+    
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -56,19 +57,14 @@
         "show_text_below": false
       }
     },
-    "alert_box_GwGtFb": {
-      "type": "alert_box",
-      "name": "Alert box",
-      "settings": {}
-    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "我想用来加粗的文字22",
-            "heading_size": "h2"
+            "heading": "{{ metaobjects[\"shopify--fabric\"][\"shopify--fabric-jojbwcwh\"].label.value }}",
+            "heading_size": "h0"
           }
         },
         "text": {
@@ -135,17 +131,18 @@
             "second_image": false
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "video_Ur4dmh": {
+          "type": "video",
           "settings": {
-            "collection": ""
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "description": "Describe the video"
           }
         }
       },
       "block_order": [
         "collection-0",
         "product",
-        "collection-1"
+        "video_Ur4dmh"
       ],
       "settings": {
         "heading": "Multimedia collage",
@@ -228,7 +225,6 @@
   },
   "order": [
     "image_banner",
-    "alert_box_GwGtFb",
     "rich_text",
     "featured_collection",
     "collage",

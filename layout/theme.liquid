@@ -27,6 +27,13 @@
 {% comment %} <div>Hello World111</div> {% endcomment %}
 
 {% render 'loop-test' %}
+    {%
+      render 'total',{
+      word: 'hello',
+      seconedword: 'hello world'
+      }
+    %}
+    {% comment %} <div>Hello World111</div> {% endcomment %}
 
 {% comment %} <link rel="stylesheet" href="www.google.com"> {% endcomment %}
  {{ 'shopify' |   link_to: 'http://www.google.com'  }}
@@ -311,8 +318,7 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {%  render 'total' %}   
-
+    {% render 'total' %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

@@ -1,40 +1,82 @@
-{% assign myString = 'Hello World' %}
+{% comment %} {{ product }} {% endcomment %}
+{% comment %} {{ product | inspect }} {% endcomment %}
+{% comment %}
+  {% if product.title %}
+    <p>Product Title: {{ product.title }}</p>
+  {% endif %}
+  {% if product.price %}
+    <p>Product Price: {{ product.price }}</p>
+  {% endif %}
 
-{% comment %} 第二个单词小写 <p>{{ myString |  capitalize   }}</p> {% endcomment %}
+  <br>
+  {% if product.title contains 'Snowboard' %}
+    <p>This is Snowboard</p>
+  {% endif %}
 
-{% comment %} <p> {{ myString  | append:'  some EXTRA text'   }} </p> {% endcomment %}
+  <br>
+  {% unless mynumvariable < 10 %}
+    <p>this num is less than 10</p>
+  {% endunless %}
 
-{% assign myOtherString = 'Hello EXTRA World      ' %}
+  <br>
 
-{% comment %} <p> {{ myOtherString |  downcase |  append: 'myOtherString'   }} </p> {% endcomment %}
-{% comment %} <p> {{ myOtherString   |  append: '!'   }} </p>
-<p> {{ myOtherString | strip  |  append: '!'   }} </p>  去掉空格 {% endcomment %}
+  <br>
 
-{% comment %} {% assign myHTmlCode = '<p style="color: red;"> Hello</p>' %}
-纯文本过滤 
-{{myHTmlCode |  strip_html}} {% endcomment %}
-{% assign myLongString = 'Hello EXTRA World  21321321321321321321sadsadsadsadsadsa    ' %}
+  {% if product.tags.size > 0 %}
+    <h2>Tags</h2>
 
-{% comment %} 只留四个字母 <p>{{  myLongString | truncate: 4,'?'  }}</p> {% endcomment %}
-{% comment %} 只留3个单词<p>{{ myLongString |  truncatewords: 3 }}</p> {% endcomment %}
+    <ul>
+      {% for tag in product.tags %}
+        <li data-product-index>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endcomment %}
 
-{% comment %} {%  assign myMultilineText = '
-            this  is my first line
-              this  is my second line
-               this  is my third line
-' |  newline_to_br 过滤器换行  %}   
+{% comment %} {{ product.title }} {% endcomment %}
+{% comment %}
+  {% assign products = collection.products %}
+  {% assign productTitles = products | map: 'title' %}
+  {% assign combinedTitles = productTitles | join: ', ' %}
 
-{{  myMultilineText   }} {% endcomment %}
+  {{ collection.products }}
+{% endcomment %}
+{% comment %}
+  对字符串进行的一些操作 {{ product.title }}
+  {{ product.title | first }}
+  {{ product.title | last }}
+  {{ product.title | size }}
+{% endcomment %}
+{% comment %}
+  <p>{{ collection.description | default: 'this is a default description' }}</p>
 
-{% assign myText = 'Hello some extra text some extra text' %}
+  {% assign backgroundColor = '#ff0000' %}
 
-{% comment %} <p>  {{ myText  |  replace_last: 'extra', 'replace' }}</p> {% endcomment %}
- {% comment %} <p> {{ myText  |  remove_last: 'text'  }} </p> {% endcomment %}
+  <div class="swatch" style="background:{{  backgroundColor |  color_lighten: 50  }}"></div>
 
- {% comment %}  将字符串的内容分割 {% assign myColorsList = 'Html|orange,css|blue,javascript|yellow' |  split: ',' %}
- {% for language in myColorsList %}
-    {% assign languageName = language |  split: "|" | first %}
-    {% assign languageColor = language |  split:  "|" | last %}
-        <p style="color:{{ languageColor }}">{{languageName}}</p>
-   
- {% endfor %} {% endcomment %}
+  {% assign color1 = '#000000' %}
+  {% assign color2 = '#0000ff' %}
+
+  <div class="swatch" style="background:{{  color1 |  color_mix: color2,100  }}"></div>
+{% endcomment %}
+
+{% comment %} {{ section }} {% endcomment %}
+
+<p>
+  {{ word }}
+  {{ seconedword }}
+</p>
+
+{% comment %} <script src="{{ 'my-snippet-script.js' |  asset_url  }}" async></script> {% endcomment %}
+
+<img src="{{ 'sparkle.gif' | asset_img_url: '1000x1000'  }} loading='eager' width='500' height='500'">
+
+<style>
+  .swatch {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    display: block !important;
+  }
+</style>
