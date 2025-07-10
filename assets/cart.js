@@ -294,29 +294,3 @@ if (!customElements.get('cart-note')) {
     }
   );
 }
-document.addEventListener('DOMContentLoaded', function () {
-  // 假设这是一个购物车更新事件
-  document.addEventListener('cart:updated', function (event) {
-    const freeShippingThreshold = 9000;
-    const cartSubtotal = event.detail.subtotal_price; // 假设事件对象包含 subtotal_price 属性
-    const shippingNotice = document.getElementById('free-shipping-notice');
-    const shippingMessage = document.getElementById('shipping-message');
-
-    if (cartSubtotal >= freeShippingThreshold) {
-      shippingMessage.textContent = 'free shopping!';
-      shippingMessage.style.color = 'green';
-      shippingMessage.style.fontWeight = 'bold';
-      shippingMessage.style.fontSize = '16px';
-    } else {
-      const remaining = freeShippingThreshold - cartSubtotal;
-      const formattedRemaining = (remaining / 100).toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD', // 根据实际货币修改
-      });
-      shippingMessage.textContent = `You need ${formattedRemaining} to enjoy free shipping`;
-      shippingMessage.style.color = '';
-      shippingMessage.style.fontWeight = '';
-      shippingMessage.style.fontSize = '';
-    }
-  });
-});
