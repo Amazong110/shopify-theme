@@ -139,19 +139,20 @@
         "collection-0": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "autumn-sale"
           }
         },
         "product": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "red-sports-tee",
             "second_image": false
           }
         },
         "video_Ur4dmh": {
           "type": "video",
           "settings": {
+            "cover_image": "shopify://shop_images/city-woman-fashion_925x_2x_2b891678-f2bf-4641-9a81-fac6ac7e058c.jpg",
             "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "description": "Describe the video"
           }
@@ -163,7 +164,7 @@
         "video_Ur4dmh"
       ],
       "settings": {
-        "heading": "Multimedia collage",
+        "heading": "Get Artsy with Our Multimedia Collage of Trendy Products!",
         "heading_size": "h2",
         "desktop_layout": "left",
         "mobile_layout": "collage",
