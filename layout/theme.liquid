@@ -14,8 +14,6 @@
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
-    {{ 'tailwind.output.css' |  asset_url |  stylesheet_tag }}
-    <link href="../assets/tailwind.output.css" rel="stylesheet">
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -24,19 +22,8 @@
     </title>
 
 
-{% comment %} <div>Hello World111</div> {% endcomment %}
 
-{% render 'loop-test' %}
-    {%
-      render 'total',{
-      word: 'hello',
-      seconedword: 'hello world'
-      }
-    %}
-    {% comment %} <div>Hello World111</div> {% endcomment %}
 
-{% comment %} <link rel="stylesheet" href="www.google.com"> {% endcomment %}
- {{ 'shopify' |   link_to: 'http://www.google.com'  }}
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
@@ -318,7 +305,7 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {% render 'total' %}
+    {% comment %} {% render 'total' %} {% endcomment %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

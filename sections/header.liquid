@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
-{{ 'new-css.css' |  asset_url |  stylesheet_tag   }}
+{% comment %} {{ 'new-css.css' |  asset_url |  stylesheet_tag   }} {% endcomment %}
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
@@ -101,7 +101,7 @@
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
-<button id="clickbtn">点击此按钮弹出框子</button>
+{% comment %} <button id="clickbtn">点击此按钮弹出框子</button> {% endcomment %}
 
 {%- liquid
   for block in section.blocks
