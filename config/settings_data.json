@@ -123,6 +123,8 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
+    "show_shipping_bar": false,
+    "minimum_free_shipping": 100,
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
