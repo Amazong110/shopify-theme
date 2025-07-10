@@ -63,22 +63,22 @@
         "heading_JqDUgt": {
           "type": "heading",
           "settings": {
-            "heading": "Image with text",
-            "heading_size": "h1"
+            "heading": "\"Fall in Blue: Your New Season Essential\"​",
+            "heading_size": "h2"
           }
         },
         "text_9ewVUf": {
           "type": "text",
           "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_style": "body"
+            "text": "<p>\"LIMITED TIME: 25% OFF + Free Fall Scarf with your jacket purchase. Use code: <strong>FALLBLUE </strong>at checkout.\"​</p>",
+            "text_style": "subtitle"
           }
         },
         "button_kneReh": {
           "type": "button",
           "settings": {
             "button_label": "Button label",
-            "button_link": "",
+            "button_link": "shopify://products/navy-sport-jacket",
             "button_style_secondary": false
           }
         }
