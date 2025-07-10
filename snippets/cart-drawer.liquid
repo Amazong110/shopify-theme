@@ -74,6 +74,19 @@
           </span>
         </button>
       </div>
+
+      <div class="free-shipping-notice" style="padding: 15px; text-align: center; border-bottom: 1px solid #eee;">
+        {% assign free_shipping_threshold = 9000 %}
+        {% assign cart_subtotal = cart.subtotal_price %}
+
+        {% if cart_subtotal >= free_shipping_threshold %}
+          <span style="color: green; font-weight: bold; font-size: 16px;">free shopping!</span>
+        {% else %}
+          {% assign remaining = free_shipping_threshold | minus: cart_subtotal %}
+          <span>You need {{ remaining | divided_by: 100.0 | money }} to enjoy free shipping</span>
+        {% endif %}
+      </div>
+
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
