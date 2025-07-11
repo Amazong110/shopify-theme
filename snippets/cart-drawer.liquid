@@ -459,6 +459,48 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
       </cart-drawer-items>
+
+      {% comment %} 控制追加销售商品显示/隐藏的变量 {% endcomment %}
+      {% assign upsell_product_handle = 'black-leather-bag' %}
+      {% assign upsell_product = all_products[upsell_product_handle] %}
+      {% assign is_upsell_in_cart = false %}
+
+      {% comment %} 检查购物车中是否已包含该追加销售商品 {% endcomment %}
+      {% for item in cart.items %}
+        {% if item.product.handle == upsell_product_handle %}
+          {% assign is_upsell_in_cart = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% comment %} 当商品不在购物车时显示追加销售区块 {% endcomment %}
+      {% unless is_upsell_in_cart %}
+        <div class="drawer_upsell">
+          <div class="drawer_upsell_headline">Try this bag to get a better deal 😎</div>
+          <div class="drawer_upsell_product">
+            {% render 'card-product',
+              card_product: upsell_product,
+              quick_add: 'standard',
+              horizontal_class: true,
+              horizontal_quick_add: true
+            %}
+          </div>
+          <style>
+            .drawer_upsell_product .card__content {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 2rem;
+            }
+            .drawer_upsell_product .card__heading a:after {
+              display: none;
+            }
+          </style>
+        </div>
+      {% endunless %}
+
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
           <details id="Details-CartDrawer">
