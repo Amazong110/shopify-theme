@@ -26,6 +26,16 @@
 
 <br>
 
-{%  assign  html = <div>
-    <p>hello {{  urlRedirects.query  }}</p>
-</div>   %}
+{% assign html = div %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%  assign  html = <div>
+        <p>hello {{  urlRedirects.query  }}</p>
+    </div>   %}
+  to: "{% assign html = div %}"
+  position: 334..357
+{%- endcomment -%}
